@@ -9,8 +9,12 @@ Parts of this code are also inspired by Dirk Walther''s Saliency Toolbox (www.sa
 If you have questions about the code, feel free to contact me at: bhu6 (AT) jhmi (DOT) edu.
 %}
 
+datasets = 'datasets';
+num_images = 3; % number of images to process from each dataset (choose either 1,2, or 3)
+
+
 clc
-addpath('datasets');
+addpath(datasets);
 addpath('mfiles');
 addpath('mex');
 
@@ -18,12 +22,11 @@ params = makeDefaultParams_depth; % default parameters for the saliency model
 
 %% Change the parameters here for different datasets (NUS-3D,Gaze-3D,NCTU-3D) and number of images (1-3)
 params.dataset = 'NUS-3D'; % identifies which dataset to use (choose either 'NUS-3D','Gaze-3D', or 'NCTU-3D')
-num_images = 3; % number of images to process from each dataset (choose either 1,2, or 3)
 %%
 
-d_color = dir(['datasets/' params.dataset '/color/']); % find the color images
+d_color = dir([strcat(datasets,'/') params.dataset '/color/']); % find the color images
 imgFiles_color = {d_color(~[d_color.isdir]).name};
-d_depth = dir(['datasets/' params.dataset '/depth/']); % find the depth images
+d_depth = dir([strcat(datasets,'/') params.dataset '/depth/']); % find the depth images
 imgFiles_depth = {d_depth(~[d_depth.isdir]).name};
 
 % error checking to make sure correct dataset is given
